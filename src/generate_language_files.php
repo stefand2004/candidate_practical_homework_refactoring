@@ -1,9 +1,22 @@
 <?php
 
-chdir(__DIR__);
+require_once('Config.php');
+require_once('ApiCall.php');
+require_once('LanguageBatchBo.php');
 
-include('../vendor/autoload.php');
 
-$languageBatchBo = new \Language\LanguageBatchBo();
-$languageBatchBo->generateLanguageFiles();
-$languageBatchBo->generateAppletLanguageXmlFiles();
+$ApiCallParams = array('system_api',
+						'language_api',
+						array(
+							'system' => 'LanguageFiles',
+							'action' => 'getAppletLanguages'
+						)
+					);
+
+$arg = 'system.translated_applications';
+$applets = array('memberapplet' => 'JSM2_MemberApplet');
+
+
+
+
+new Language\LanguageBatchBo($arg,$ApiCallParams,$applets);
